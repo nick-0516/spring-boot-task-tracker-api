@@ -93,7 +93,7 @@ GET /projects/1/tasks
 }
 ```
 
-## 🔍 Swagger & Schemas
+## Swagger & Schemas
 
 - Live documentation & testing at:
 
