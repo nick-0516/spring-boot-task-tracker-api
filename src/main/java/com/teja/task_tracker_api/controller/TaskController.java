@@ -15,13 +15,13 @@ public class TaskController{
 
     @Autowired
     private TaskService taskService;
-    // POST /tasks → Add a new task
+
     @PostMapping
     public Task createTask(@RequestBody @Valid Task task) {
         taskService.addTask(task);
-        return task; // Just return the same object for now
+        return task;
     }
-    // GET /tasks → Get all tasks
+
     @GetMapping
     public List<TaskDTO> getAllTasks() {
         List<Task> tasks = taskService.getTaskList();

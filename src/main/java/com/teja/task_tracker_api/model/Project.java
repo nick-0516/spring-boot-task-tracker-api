@@ -17,7 +17,7 @@ public class Project {
     private String name;
 
     @OneToMany(mappedBy = "project", cascade = CascadeType.ALL)
-    @JsonIgnore
+    @JsonIgnore //added this here to avoid infinite loop while serializing project
     private List<Task> tasks = new ArrayList<>();
 
     public List<Task> getTasks() {

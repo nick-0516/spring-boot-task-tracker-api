@@ -49,6 +49,8 @@ public class TaskService {
 
     public TaskDTO convertToDTO(Task task) {
         Project project = task.getProject();
+
+        //to avoid NullPointerException, incase if a task doesn't have a project.
         int projectId = project != null ? project.getId() : 0;
         String projectName = project != null ? project.getName() : null;
 

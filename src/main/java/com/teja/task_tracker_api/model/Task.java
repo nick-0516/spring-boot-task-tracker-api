@@ -15,7 +15,7 @@ public class Task {
     private boolean completed;
 
     @ManyToOne
-    @JoinColumn(name = "project_id")
+    @JoinColumn(name = "project_id") //this is the foreign key column which maps tasks to a project
     private Project project;
 
     public Project getProject() {

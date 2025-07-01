@@ -32,8 +32,9 @@ public class ProjectService {
     public void deleteProject(int id) {
         Project delProject = projectRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Project not found with ID: " + id));
         projectRepository.delete(delProject);
-//      projectRepository.deleteById(id); this can't be used.
-        // you wouldn't know if there was a project with corresponding id or not, ProjectController will always return success string.
+      //projectRepository.deleteById(id); this can't be used.
+        // we wouldn't know if there was a project with corresponding id or not,
+        // ProjectController will always return success string.
     }
 
 }
