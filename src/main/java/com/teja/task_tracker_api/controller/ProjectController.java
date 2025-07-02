@@ -1,5 +1,7 @@
 package com.teja.task_tracker_api.controller;
 
+import com.teja.task_tracker_api.dto.ProjectDTO;
+import com.teja.task_tracker_api.dto.TaskDTO;
 import com.teja.task_tracker_api.model.Project;
 import com.teja.task_tracker_api.model.Task;
 import com.teja.task_tracker_api.repository.ProjectRepository;
@@ -24,8 +26,11 @@ public class ProjectController {
     }
 
     @GetMapping
-    public List<Project> getProject() {
-        return projectService.getProject();
+    public List<ProjectDTO> GetAllProjects() {
+        List<Project> projects = projectService.getProject();
+        return projects.stream()
+                .map(project -> projectService.convertToDTO(project))
+                .toList();
     }
 
     @GetMapping("/{id}")
