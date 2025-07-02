@@ -19,27 +19,30 @@ public class TaskService {
 //    @Autowired
 //    private ProjectRepository projectRepository;
 
-    public Task addTask(Task task) {
+    public TaskDTO addTask(Task task) {
 //        int projectID = task.getProject().getId();
 //        Project existingProject = projectRepository.findById(projectID)
 //                .orElseThrow(() -> new RuntimeException("Project not found"));
 //        task.setProject(existingProject);
         // this logic is unnecessary since @ManyToOne(has EAGER as default) used for task -> project linking in Task.java
         // (And this only works with GET, POST still has null value for project name)
-        return taskRepository.save(task);
+        taskRepository.save(task);
+        return convertToDTO(task);
     }
     public List<Task> getTaskList() {
         return taskRepository.findAll();
     }
-    public Task getTaskById(int id) {
-        return taskRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Task not found with ID: " + id));
+    public TaskDTO getTaskById(int id) {
+        Task task = taskRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Task not found with ID: " + id));
+        return convertToDTO(task);
     }
 
-    public Task updateTask(int id, Task updatedTask) {
+    public TaskDTO updateTask(int id, Task updatedTask) {
         Task task = taskRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Task not found with ID: " + id));
         task.setTitle(updatedTask.getTitle());
         task.setCompleted(updatedTask.isCompleted());
-        return taskRepository.save(task);
+        Task newTask = taskRepository.save(task);
+        return convertToDTO(newTask);
     }
 
     public void deleteTask(int id) {

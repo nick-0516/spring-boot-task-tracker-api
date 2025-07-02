@@ -16,20 +16,23 @@ public class ProjectService {
     @Autowired
     private ProjectRepository projectRepository;
 
-    public Project addProject(Project project) {
-        return projectRepository.save(project);
+    public ProjectDTO addProject(Project project) {
+        Project prj = projectRepository.save(project);
+        return convertToDTO(prj);
     }
     public List<Project> getProject() {
         return projectRepository.findAll();
     }
-    public Project getProjectById(int id) {
-        return projectRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Project not found with ID: " + id));
+    public ProjectDTO getProjectById(int id) {
+        Project project = projectRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Project not found with ID: " + id));
+        return convertToDTO(project);
     }
 
-    public Project updateProject(int id, Project updatedProject) {
+    public ProjectDTO updateProject(int id, ProjectDTO updatedProject) {
         Project existingProject = projectRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Project not found with ID: " + id));
         existingProject.setName(updatedProject.getName());
-        return projectRepository.save(existingProject);
+        Project saved = projectRepository.save(existingProject);
+        return convertToDTO(saved);
     }
 
     public void deleteProject(int id) {
@@ -46,6 +49,11 @@ public class ProjectService {
                 project.getId(),
                 project.getName()
         );
+    }
+
+    public Project getProjectEntityById(int id) {
+        return projectRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Project not found"));
     }
 
 }

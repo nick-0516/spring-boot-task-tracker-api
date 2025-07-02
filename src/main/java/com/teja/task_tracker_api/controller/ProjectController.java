@@ -6,6 +6,7 @@ import com.teja.task_tracker_api.model.Project;
 import com.teja.task_tracker_api.model.Task;
 import com.teja.task_tracker_api.repository.ProjectRepository;
 import com.teja.task_tracker_api.service.ProjectService;
+import com.teja.task_tracker_api.service.TaskService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -19,9 +20,11 @@ public class ProjectController {
     private ProjectService projectService;
     @Autowired
     private ProjectRepository projectRepository;
+    @Autowired
+    private TaskService taskService;
 
     @PostMapping
-    public Project createProject(@RequestBody @Valid Project project) {
+    public ProjectDTO createProject(@RequestBody @Valid Project project) {
         return projectService.addProject(project);
     }
 
@@ -34,18 +37,21 @@ public class ProjectController {
     }
 
     @GetMapping("/{id}")
-    public Project getProjectById(@PathVariable int id) {
+    public ProjectDTO getProjectById(@PathVariable int id) {
         return projectService.getProjectById(id);
     }
 
     @GetMapping("{id}/tasks")
-    public List<Task> getTasksByProject(@PathVariable int id) {
-        Project project = projectService.getProjectById(id);
-        return project.getTasks();
+    public List<TaskDTO> getTasksByProject(@PathVariable int id) {
+        Project project = projectService.getProjectEntityById(id); // returns Project entity
+        List<Task> tasks = project.getTasks();
+        return tasks.stream()
+                .map(task -> taskService.convertToDTO(task))
+                .toList();
     }
 
     @PutMapping("{id}")
-    public Project updateProject(@PathVariable int id, @RequestBody Project updatedProject) {
+    public ProjectDTO updateProject(@PathVariable int id,@Valid @RequestBody ProjectDTO updatedProject) {
         return projectService.updateProject(id, updatedProject);
     }
 

@@ -17,9 +17,9 @@ public class TaskController{
     private TaskService taskService;
 
     @PostMapping
-    public Task createTask(@RequestBody @Valid Task task) {
-        taskService.addTask(task);
-        return task;
+    public TaskDTO createTask(@RequestBody @Valid Task task) {
+        return taskService.addTask(task);
+
     }
 
     @GetMapping
@@ -30,11 +30,11 @@ public class TaskController{
                 .toList();
     }
     @GetMapping("/{id}")
-    public Task getTaskById(@PathVariable int id) {
+    public TaskDTO getTaskById(@PathVariable int id) {
         return taskService.getTaskById(id);
     }
     @PutMapping("{id}")
-    public Task updateTask(@PathVariable int id, @RequestBody Task updatedTask) {
+    public TaskDTO updateTask(@PathVariable int id, @Valid @RequestBody Task updatedTask) {
         return taskService.updateTask(id, updatedTask);
     }
     @DeleteMapping("{id}")

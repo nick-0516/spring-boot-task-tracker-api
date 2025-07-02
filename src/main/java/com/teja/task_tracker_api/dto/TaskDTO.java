@@ -1,7 +1,12 @@
 package com.teja.task_tracker_api.dto;
 
+import jakarta.validation.constraints.Size;
+import org.antlr.v4.runtime.misc.NotNull;
+
 public class TaskDTO {
     private int id;
+    @NotNull
+    @Size(min = 3, max = 50)
     private String title;
     private boolean completed;
     private int projectId;
