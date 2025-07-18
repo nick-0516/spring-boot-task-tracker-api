@@ -43,7 +43,7 @@ Hosted on Render:
 ```
 https://task-tracker-api-gr89.onrender.com/swagger-ui/index.html
 ```
-Full documentation and authentication flow are described directly in Swagger UI — simply follow the steps shown there to test secured endpoints.
+Full documentation and authentication flow are described directly in Swagger UI, simply follow the steps shown there to test secured endpoints.
 
 
 ## Running Locally
