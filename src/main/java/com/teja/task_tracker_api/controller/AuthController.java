@@ -17,7 +17,7 @@ public class AuthController {
 
     @PostMapping("/authenticate")
     public String generateToken(@RequestBody AuthRequest authRequest) throws Exception {
-        if ("ravi".equals(authRequest.getUsername()) && "pass".equals(authRequest.getPassword())) {
+        if ("user".equals(authRequest.getUsername()) && "pass".equals(authRequest.getPassword())) {
             return jwtUtil.generateToken(authRequest.getUsername());
         } else {
             throw new Exception("Invalid username/password");
