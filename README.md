@@ -7,6 +7,7 @@ A complete Java Spring Boot REST API that manages Projects and their Tasks, buil
 **DTOs** for clean JSON responses  
 **Validation** with `@Valid`, `@NotNull`, `@Size`  
 **Global exception handling** using `@ControllerAdvice`  
+**JWT**-based authentication for secure APIs 
 **Swagger UI** for live API documentation & testing  
 Fully tested with Postman
 
@@ -19,6 +20,7 @@ Fully tested with Postman
 - DTOs to keep API outputs clean (avoid exposing JPA entities)
 - Validation to enforce data rules on input
 - Global exception handling to return neat JSON errors
+- JWT-based authentication with token generation and filtering  
 - Auto-generated Swagger documentation at `/swagger-ui`
 
 ---
@@ -32,6 +34,7 @@ Fully tested with Postman
 - **Maven**, **Git**
 - **Postman** for manual API testing
 - **Swagger UI** for interactive docs
+- **Spring Security** + **JWT** for secure endpoints 
 
 ---
 
@@ -47,6 +50,47 @@ Then open to explore & test API.
 
 ```
 http://localhost:8080/swagger-ui/index.html
+```
+
+## Authentication (JWT)
+This API uses JWT-based stateless authentication.
+
+### ➡ Get a Token
+```
+POST /api/authenticate
+Body:
+{
+  "username": "ravi",
+  "password": "pass"
+}
+```
+Copy the token from the response.
+
+## Swagger Authorization
+Open http://localhost:8080/swagger-ui/index.html
+
+Click Authorize (button at top-right)
+
+Paste only the raw token (no Bearer prefix needed)
+
+Now you can test secured endpoints like /projects and /tasks
+
+## Welcome Endpoint
+To guide new users and simplify API access.
+
+Try:
+
+```
+GET /
+```
+It returns:
+
+```
+{
+  "message": "Welcome to the Task Tracker API",
+  "docs": "/swagger-ui/index.html",
+  "authInstructions": "POST /api/authenticate with username='ravi', password='pass' to get a token"
+}
 ```
 
 ## Example API calls
