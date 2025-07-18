@@ -34,7 +34,7 @@ Fully tested with Postman
 - **Maven**, **Git**
 - **Postman** for manual API testing
 - **Swagger UI** for interactive docs
-- Spring Security + JWT for secure endpoints 
+- **Spring Security** + **JWT** for secure endpoints 
 
 ---
 
