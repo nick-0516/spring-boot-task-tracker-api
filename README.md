@@ -7,7 +7,7 @@ A complete Java Spring Boot REST API that manages Projects and their Tasks, buil
 **DTOs** for clean JSON responses  
 **Validation** with `@Valid`, `@NotNull`, `@Size`  
 **Global exception handling** using `@ControllerAdvice`  
-- **JWT**-based authentication for secure APIs 
+**JWT**-based authentication for secure APIs 
 **Swagger UI** for live API documentation & testing  
 Fully tested with Postman
 
@@ -77,6 +77,7 @@ Now you can test secured endpoints like /projects and /tasks
 
 ## Welcome Endpoint
 To guide new users and simplify API access.
+
 Try:
 
 ```
@@ -86,7 +87,7 @@ It returns:
 
 ```
 {
-  "message": "Welcome to the Task Tracker API 👋",
+  "message": "Welcome to the Task Tracker API",
   "docs": "/swagger-ui/index.html",
   "authInstructions": "POST /api/authenticate with username='ravi', password='pass' to get a token"
 }
