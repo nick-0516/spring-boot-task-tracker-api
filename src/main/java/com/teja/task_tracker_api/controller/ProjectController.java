@@ -7,6 +7,7 @@ import com.teja.task_tracker_api.model.Task;
 import com.teja.task_tracker_api.repository.ProjectRepository;
 import com.teja.task_tracker_api.service.ProjectService;
 import com.teja.task_tracker_api.service.TaskService;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -15,6 +16,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/projects")
+@SecurityRequirement(name ="BearerAuth")
 public class ProjectController {
     @Autowired
     private ProjectService projectService;

@@ -3,6 +3,7 @@ package com.teja.task_tracker_api.controller;
 import com.teja.task_tracker_api.dto.TaskDTO;
 import com.teja.task_tracker_api.model.Task;
 import com.teja.task_tracker_api.service.TaskService;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -11,6 +12,7 @@ import java.util.*;
 
 @RestController
 @RequestMapping("/tasks")
+@SecurityRequirement(name ="BearerAuth")
 public class TaskController{
 
     @Autowired
