@@ -1,6 +1,7 @@
 package com.teja.task_tracker_api.service;
 
 
+import com.teja.task_tracker_api.dto.PaginatedResponse;
 import com.teja.task_tracker_api.dto.TaskDTO;
 import com.teja.task_tracker_api.exception.ResourceNotFoundException;
 import com.teja.task_tracker_api.model.Project;
@@ -10,6 +11,10 @@ import com.teja.task_tracker_api.repository.TaskRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
@@ -40,6 +45,18 @@ public class TaskService {
         log.info("Fetching task with ID: {}", id);
         Task task = taskRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Task not found with ID: " + id));
         return convertToDTO(task);
+    }
+    public PaginatedResponse<Task> getTasksPaginated(int page, int size, String sortBy) {
+        Pageable pageable = PageRequest.of(page, size, Sort.by(sortBy));
+        Page<Task> taskPage = taskRepository.findAll(pageable);
+        return new PaginatedResponse<Task>(
+                taskPage.getContent(),
+                taskPage.getNumber(),
+                taskPage.getSize(),
+                taskPage.getTotalElements(),
+                taskPage.getTotalPages(),
+                taskPage.isLast()
+        );
     }
 
     public TaskDTO updateTask(int id, Task updatedTask) {
