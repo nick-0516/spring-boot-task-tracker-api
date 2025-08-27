@@ -59,6 +59,19 @@ public class TaskService {
         );
     }
 
+    //filtering
+    public Page<Task> getFilteredTasks(Boolean completed, Long projectId, Pageable pageable) {
+        if (completed != null && projectId != null) {
+            return taskRepository.findByCompletedAndProjectId(completed, projectId, pageable);
+        } else if (completed != null) {
+            return taskRepository.findByCompleted(completed, pageable);
+        } else if (projectId != null) {
+            return taskRepository.findByProjectId(projectId, pageable);
+        } else {
+            return taskRepository.findAll(pageable);
+        }
+    }
+
     public TaskDTO updateTask(int id, Task updatedTask) {
         log.info("Updating task ID: {}", id);
         Task task = taskRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Task not found with ID: " + id));
@@ -90,4 +103,5 @@ public class TaskService {
                 projectName
         );
     }
+
 }
